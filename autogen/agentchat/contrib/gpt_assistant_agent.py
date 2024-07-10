@@ -83,6 +83,8 @@ class GPTAssistantAgent(ConversableAgent):
         if openai_assistant_id is None:
             # try to find assistant by name first
             candidate_assistants = retrieve_assistants_by_name(self._openai_client, name)
+            print("-------------check-point-candidate_assistants-------------------")
+            print(candidate_assistants)
             if len(candidate_assistants) > 0:
                 # Filter out candidates with the same name but different instructions, file IDs, and function names.
                 candidate_assistants = self.find_matching_assistant(
@@ -90,7 +92,8 @@ class GPTAssistantAgent(ConversableAgent):
                     instructions,
                     openai_assistant_cfg.get("tools", []),
                 )
-
+            print("-------------check-point-candidate_assistants-------------------")
+            print(candidate_assistants)
             if len(candidate_assistants) == 0:
                 logger.warning("No matching assistant found, creating a new assistant")
                 # create a new assistant
@@ -99,6 +102,8 @@ class GPTAssistantAgent(ConversableAgent):
                         "No instructions were provided for new assistant. Using default instructions from AssistantAgent.DEFAULT_SYSTEM_MESSAGE."
                     )
                     instructions = AssistantAgent.DEFAULT_SYSTEM_MESSAGE
+                    print("-------------check-point-AssistantAgent.DEFAULT_SYSTEM_MESSAGE-------------------")
+                    print(instructions) 
                 self._openai_assistant = create_gpt_assistant(
                     self._openai_client,
                     name=name,
