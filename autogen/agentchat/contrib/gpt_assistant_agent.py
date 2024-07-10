@@ -92,6 +92,8 @@ class GPTAssistantAgent(ConversableAgent):
                     instructions,
                     openai_assistant_cfg.get("tools", []),
                 )
+                print(candidate_assistants[0].instructions)
+                instructions = candidate_assistants[0].instructions
             print("-------------check-point-candidate_assistants-------------------")
             print(candidate_assistants)
             if len(candidate_assistants) == 0:
