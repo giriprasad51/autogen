@@ -887,6 +887,7 @@ class GroupChat:
         print("-------------check-point-1-------------------")
         print(agents)
         for agent in agents:
+            print(agent.description, agent.name)
             if agent.description.strip() == "":
                 logger.warning(
                     f"The agent '{agent.name}' has an empty description, and may not work well with GroupChat."
