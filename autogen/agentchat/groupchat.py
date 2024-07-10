@@ -323,7 +323,8 @@ class GroupChat:
         """Return the system message for selecting the next speaker. This is always the *first* message in the context."""
         if agents is None:
             agents = self.agents
-
+        print("-------------check-point-2-------------------")
+        print(agents)
         roles = self._participant_roles(agents)
         agentlist = f"{[agent.name for agent in agents]}"
 
@@ -633,6 +634,8 @@ class GroupChat:
         # NOTE: Do we have a speaker prompt (select_speaker_prompt_template is not None)? If we don't, we need to feed in the last message to start the nested chat
 
         # Agent for selecting a single agent name from the response
+        print("-------------check-point-3-------------------")
+        print(agents)
         speaker_selection_agent = ConversableAgent(
             "speaker_selection_agent",
             system_message=self.select_speaker_msg(agents),
@@ -881,6 +884,8 @@ class GroupChat:
             agents = self.agents
 
         roles = []
+        print("-------------check-point-1-------------------")
+        print(agents)
         for agent in agents:
             if agent.description.strip() == "":
                 logger.warning(

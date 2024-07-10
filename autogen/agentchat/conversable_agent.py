@@ -652,6 +652,8 @@ class ConversableAgent(LLMAgent):
         # unless it's "function".
         valid = self._append_oai_message(message, "assistant", recipient)
         if valid:
+            print("-------------check-point-6-------------------")
+            print(message, self, request_reply, silent)
             recipient.receive(message, self, request_reply, silent)
         else:
             raise ValueError(
@@ -815,6 +817,8 @@ class ConversableAgent(LLMAgent):
         self._process_received_message(message, sender, silent)
         if request_reply is False or request_reply is None and self.reply_at_receive[sender] is False:
             return
+        print("-------------check-point-5-------------------")
+        print(self.chat_messages[sender], sender)
         reply = self.generate_reply(messages=self.chat_messages[sender], sender=sender)
         if reply is not None:
             self.send(reply, sender, silent=silent)
@@ -1015,6 +1019,8 @@ class ConversableAgent(LLMAgent):
                 msg2send = message(_chat_info["sender"], _chat_info["recipient"], kwargs)
             else:
                 msg2send = self.generate_init_message(message, **kwargs)
+            print("-------------check-point-7-------------------")
+            print(msg2send, recipient, silent)
             self.send(msg2send, recipient, silent=silent)
         summary = self._summarize_chat(
             summary_method,
@@ -1969,6 +1975,8 @@ class ConversableAgent(LLMAgent):
             if inspect.iscoroutinefunction(reply_func):
                 continue
             if self._match_trigger(reply_func_tuple["trigger"], sender):
+                print("-------------check-point-4-------------------")
+                print(self, messages, sender, reply_func_tuple["config"])
                 final, reply = reply_func(self, messages=messages, sender=sender, config=reply_func_tuple["config"])
                 if logging_enabled():
                     log_event(
